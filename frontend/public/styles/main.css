@@ -244,3 +244,10 @@ header {
     color: #52299e;;
     font-size: 1.2rem;
 }
+
+#tela {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
