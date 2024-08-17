@@ -8,6 +8,30 @@ body {
     font-family: 'Roboto', sans-serif;
     background-color: #1b1b1b;
     color: #fff;
+    --sb-track-color: #151515;
+    --sb-thumb-color: #52299e;
+    --sb-size: 5px;
+}
+
+body::-webkit-scrollbar {
+  width: var(--sb-size)
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 10px;
+  
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color)var(--sb-track-color);
+  }
 }
 
 header {
@@ -45,7 +69,6 @@ header {
 .site-name {
     font-size: 3rem;
     font-weight: bold;
-    color: #fff;
     text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
 }
 
@@ -110,17 +133,15 @@ header {
     border-radius: 10px;
     max-width: 600px;
     width: 90%;
-    color: #fff;
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .popup h2 {
     color: #52299e;
     margin-bottom: 20px;
-}
-
-.popup p {
-    color: #ccc;
 }
 
 .close {
@@ -132,13 +153,7 @@ header {
     cursor: pointer;
 }
 
-.close:hover {
-    color: #ffa500;
-}
-
-
 /* Estilos anteriores... */
-
 .raffles-container {
     padding: 30px;
     background-color: #1b1b1b;
@@ -189,7 +204,6 @@ header {
 .raffle-price {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #ffffff;
 }
 
 /* Responsividade */
@@ -219,7 +233,6 @@ header {
     background-color: #1b1b1b;
     padding: 20px;
     text-align: center;
-    color: #ccc;
     font-size: 0.9rem;
 }
 

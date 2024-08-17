@@ -19,13 +19,3 @@ window.addEventListener('click', function(event) {
       }
   });
 });
-
-// Fechar o pop-up ao clicar fora do conteúdo
-window.addEventListener('click', function(event) {
-  const popupElements = document.querySelectorAll('.popup');
-  popupElements.forEach(popup => {
-      if (event.target === popup) {
-          popup.style.display = 'none';
-      }
-  });
-});

@@ -4,83 +4,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSBET Rifas</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-    <header>
-        <img src="assets/images/banner.jpg" alt="Banner do Site" class="banner">
-        <div class="profile-container">
-            <img src="assets/images/LOGOCSBET.png" alt="Foto de Perfil" class="profile-picture">
-            <h1 class="site-name">CSBET</h1>
-        </div>
-    </header>
+  <header>
+    <img src="assets/images/banner.jpg" alt="Banner do Site" class="banner">
+    <div class="profile-container">
+      <img src="assets/images/LOGOCSBET.png" alt="Foto de Perfil" class="profile-picture">
+      <h1 class="site-name">CSBET</h1>
+    </div>
+  </header>
 
-    <nav class="menu">
-        <ul>
-            <li><a href="#" onclick="openPopup('comoParticipar')">Como Participar</a></li>
-            <li><a href="#" onclick="openPopup('contato')">Suporte</a></li>
-        </ul>
-    </nav>
-        <!-- Pop-ups Menu -->
-        <div id="comoParticipar" class="popup">
-            <div class="popup-content">
-                <span class="close" onclick="closePopup('comoParticipar')">&times;</span>
-                <h2>Como Participar</h2>
-                <p>Aqui estão as instruções de como participar das rifas.</p>
+  <nav class="menu">
+    <ul>
+      <li><a href="#" onclick="openPopup('comoParticipar')">Como Participar</a></li>
+      <li><a href="#" onclick="openPopup('contato')">Suporte</a></li>
+    </ul>
+  </nav>
+  <!-- Pop-ups Menu -->
+  <div id="comoParticipar" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup('comoParticipar')">&times;</span>
+      <h2>Como Participar</h2>
+      <p>Aqui estão as instruções de como participar das rifas.</p>
+    </div>
+  </div>
+
+  <div id="contato" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup('contato')">&times;</span>
+      <h2>Contato</h2>
+      <p>Aqui estão as informações de contato.</p>
+    </div>
+  </div>
+  
+  <section id="rafflesContainer" class="raffles-container">
+    <ul class="raffles-list">
+        <li class="raffle-item" onclick="openPopup('popUpRifas')">
+            <img src="assets/images/LOGOCSBET.png" alt="Rifa 1">
+            <div class="raffle-details">
+                <h2>Rifa 1</h2>
+                <p>Descrição da Rifa 1.</p>
             </div>
-        </div>
-
-        <div id="contato" class="popup">
-            <div class="popup-content">
-                <span class="close" onclick="closePopup('contato')">&times;</span>
-                <h2>Contato</h2>
-                <p>Aqui estão as informações de contato.</p>
+            <span class="raffle-price">R$ 10,00</span>
+        </li>
+        <li class="raffle-item" onclick="openPopup('popUpRifas')">
+            <img src="assets/images/LOGOCSBET.png" alt="Rifa 2">
+            <div class="raffle-details">
+                <h2>Rifa 2</h2>
+                <p>Descrição da Rifa 2.</p>
             </div>
-        </div>
-    
+            <span class="raffle-price">R$ 20,00</span>
+        </li>
+        <li class="raffle-item" onclick="openPopup('popUpRifas')">
+            <img src="assets/images/LOGOCSBET.png" alt="Rifa 3">
+            <div class="raffle-details">
+                <h2>Rifa 3</h2>
+                <p>Descrição da Rifa 3.</p>
+            </div>
+            <span class="raffle-price">R$ 25,00</span>
+        </li>
+        <li class="raffle-item" onclick="openPopup('popUpRifas')">
+            <img src="assets/images/LOGOCSBET.png" alt="Rifa 4">
+            <div class="raffle-details">
+                <h2>Rifa 4</h2>
+                <p>Descrição da Rifa 4.</p>
+            </div>
+            <span class="raffle-price">R$ 30,00</span>
+        </li>
+    </ul>
+  </section>
 
-    <section id="rafflesContainer" class="raffles-container">
-        <ul class="raffles-list">
-            <li class="raffle-item">
-                <img src="assets/images/LOGOCSBET.png" alt="Rifa 1">
-                <div class="raffle-details">
-                    <h2>Rifa 1</h2>
-                    <p>Descrição da Rifa 1.</p>
-                </div>
-                <span class="raffle-price">R$ 10,00</span>
-            </li>
-            <li class="raffle-item">
-                <img src="assets/images/LOGOCSBET.png" alt="Rifa 2">
-                <div class="raffle-details">
-                    <h2>Rifa 2</h2>
-                    <p>Descrição da Rifa 2.</p>
-                </div>
-                <span class="raffle-price">R$ 20,00</span>
-            </li>
-            <li class="raffle-item">
-                <img src="assets/images/LOGOCSBET.png" alt="Rifa 3">
-                <div class="raffle-details">
-                    <h2>Rifa 3</h2>
-                    <p>Descrição da Rifa 3.</p>
-                </div>
-                <span class="raffle-price">R$ 15,00</span>
-            </li>
-            <li class="raffle-item">
-                <img src="assets/images/LOGOCSBET.png" alt="Rifa 4">
-                <div class="raffle-details">
-                    <h2>Rifa 4</h2>
-                    <p>Descrição da Rifa 4.</p>
-                </div>
-                <span class="raffle-price">R$ 25,00</span>
-            </li>
-        </ul>
-    </section>
+  <!-- Pop-ups Rifas -->
+  <div id="popUpRifas" class="popup">
+    <div class="popup-content">
+      <span class="close" onclick="closePopup('popUpRifas')">&times;</span>
+      <h2>Rifas</h2>
+      Aqui estão as informações das Rifas.
+    </div>
+  </div>
 
-    <footer class="site-footer">
-        <p>© Copyright 2024 - CSBet. Todos os direitos reservados.</p>
-        <p>Desenvolvido por <span class="heart">CSBet</span> <img src="assets/images/ak.png" alt="" style="height: 21px;"></p>
-    </footer>
+
+
+
+
+
+
+  <footer class="site-footer">
+    <p>© Copyright 2024 - CSBet. Todos os direitos reservados.</p>
+    <p>Desenvolvido por <span class="heart">CSBet</span> <img src="assets/images/ak.png" alt="" style="height: 21px;"></p>
+  </footer>
     
-    <script src="src/index.js"></script>
+  <script src="src/index.js"></script>
 </body>
 </html>
