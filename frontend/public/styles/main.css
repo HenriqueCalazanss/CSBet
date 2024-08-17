@@ -1,45 +1,233 @@
-body {
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0; /* Opcional: para uma cor de fundo leve */
+    box-sizing: border-box;
 }
 
-main {
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #1b1b1b;
+    color: #fff;
+}
+
+header {
+    position: relative;
+    text-align: center;
+}
+
+.banner {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    filter: brightness(70%);
+}
+
+.profile-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.profile-picture {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    object-fit: cover;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
+}
+
+.site-name {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+.menu {
+    background-color: #222;
+    padding: 10px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+.menu ul {
+    list-style: none;
     display: flex;
     justify-content: center;
-    align-items: center;
+    gap: 30px;
+}
+
+.menu a {
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 15px;
+    transition: color 0.3s ease;
+    font-size: 1rem;
+}
+
+.menu a::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s ease;
+}
+
+.menu a:hover {
+    color: #52299e;
+}
+
+.menu a:hover::after {
     width: 100%;
 }
 
-#container {
-    border: 1px solid black;
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: #222;
+    padding: 30px;
+    border-radius: 10px;
+    max-width: 600px;
+    width: 90%;
+    color: #fff;
+    position: relative;
+}
+
+.popup h2 {
+    color: #52299e;
+    margin-bottom: 20px;
+}
+
+.popup p {
+    color: #ccc;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.close:hover {
+    color: #ffa500;
+}
+
+
+/* Estilos anteriores... */
+
+.raffles-container {
+    padding: 30px;
+    background-color: #1b1b1b;
+}
+
+.raffles-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.raffle-item {
     display: flex;
     align-items: center;
-    justify-content: center;
-    flex-direction: column;
+    background-color: #222;
     padding: 20px;
-    background-color: #fff; /* Opcional: cor de fundo para destacar o container */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Opcional: sombra leve para o container */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease;
 }
 
-#tela {
-    height: 100px;
-    width: 200px;
-    border: 1px solid black;
-    margin-bottom: 20px;
+.raffle-item img {
+    width: 150px;
+    height: 150px;
+    border-radius: 10px;
+    margin-right: 20px;
+    object-fit: cover;
 }
 
-h1 {
-    font-size: 20px;
-    margin-bottom: 20px;
+.raffle-details {
+    flex: 1;
 }
 
-button {
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
+.raffle-details h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #52299e;
+}
+
+.raffle-details p {
+    font-size: 1rem;
+    color: #949494;
+}
+
+.raffle-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .raffles-list {
+        grid-template-columns: 1fr;
+    }
+
+    .raffle-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .raffle-item img {
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+
+    .raffle-price {
+        margin-top: 15px;
+    }
+}
+
+
+/* Footer */
+.site-footer {
+    background-color: #1b1b1b;
+    padding: 20px;
+    text-align: center;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.site-footer p {
+    margin: 5px 0;
+}
+
+.site-footer .heart {
+    color: #52299e;;
+    font-size: 1.2rem;
 }
