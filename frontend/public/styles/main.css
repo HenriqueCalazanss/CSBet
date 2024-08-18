@@ -48,6 +48,12 @@ header {
     text-align: center;
 }
 
+.selected {
+    background-color: white;
+    color: black;
+    font-weight: 700;
+}
+
 /* Footer */
 .site-footer {
     background-color: #1b1b1b;

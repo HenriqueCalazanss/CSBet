@@ -28,24 +28,41 @@ main {
 h1 {
     text-align: center;
     margin-bottom: 15px;
-    color: #592daf;
-    font-size: 1.5rem;
+    color: #52299e;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .btn {
     width: 100%;
     padding: 12px;
-    border: none;
-    border-radius: 5px;
-    border: 3px solid #592daf;
-    background-color: #00000021;
+    border: 3px solid transparent;
+    border-radius: 12px;
+    background: linear-gradient(#131219, #131219) padding-box,
+                linear-gradient(var(--angle), #7d37ff, #000d71) border-box;
     color: #fff;
     font-size: 1rem;
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 15px;
+    animation: rotate 3s linear infinite;
 }
 
 .btn:hover {
     background-color: #3b1e72;
+}
+
+@keyframes rotate {
+    0% {
+        --angle: 0deg;
+    }
+    100% {
+        --angle: 360deg;
+    }
+}
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
 }

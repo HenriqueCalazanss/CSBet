@@ -19,58 +19,100 @@ if (!admin.apps.length) {
 
 const db = admin.firestore();
 
-// Função para adicionar dados ao Firestore
-const addData = async (data) => {
+exports.handler = async function (event, context) {
   try {
-    const { text } = JSON.parse(data);
-    if (!text) {
+    if (event.httpMethod === 'POST') {
+      // Manipular a criação da rifa
+      const data = JSON.parse(event.body);
+      console.log('Dados recebidos:', data);
+
+      // Validação de dados recebidos
+      const requiredFields = [
+        'raffleName', 'raffleImage', 'raffleDescription', 
+        'raffleNumbers', 'raffleValue', 'rafflePrize', 
+        'drawType'
+      ];
+
+      for (const field of requiredFields) {
+        if (!data[field]) {
+          return {
+            statusCode: 400, // Bad Request
+            body: JSON.stringify({ success: false, error: `Campo obrigatório ausente: ${field}` }),
+          };
+        }
+      }
+
+      // Função para gerar o array de números
+      function generateNumbersArray(count) {
+        const numbersArray = {};
+        for (let i = 1; i <= count; i++) {
+          numbersArray[i] = true;
+        }
+        return numbersArray;
+      }
+
+      // Obter o próximo ID sequencial
+      const sequenceRef = db.collection('sequences').doc('raffle_sequence');
+      const sequenceDoc = await sequenceRef.get();
+      let nextId = 1;
+
+      if (sequenceDoc.exists) {
+        nextId = sequenceDoc.data().current + 1;
+      }
+
+      // Atualizar a sequência
+      await sequenceRef.set({ current: nextId });
+
+      // Adicionar dados ao Firestore com o ID sequencial
+      await db.collection('rifas').doc(`rifa${nextId}`).set({
+        name: data.raffleName,
+        image: data.raffleImage,
+        description: data.raffleDescription,
+        numbers: generateNumbersArray(data.raffleNumbers),
+        value: data.raffleValue,
+        prize: data.rafflePrize,
+        typeofdraw: data.drawType,
+        timestamp: admin.firestore.FieldValue.serverTimestamp(),
+      });
+
+      console.log('Rifa criada com sucesso');
       return {
-        statusCode: 400,
-        body: JSON.stringify({ error: 'Campo "text" é obrigatório' }),
+        statusCode: 200,
+        body: JSON.stringify({ success: true }),
+      };
+    } else if (event.httpMethod === 'GET') {
+
+      const snapshot = await db.collection('rifas').orderBy('timestamp', 'asc').get();
+
+      
+      if (snapshot.empty) {
+        return {
+          statusCode: 200,
+          body: JSON.stringify([]), // Retorna um array vazio se não houver rifas
+        };
+      }
+
+      // Mapear os documentos para um array de objetos
+      const raffles = snapshot.docs.map(doc => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify(raffles),
+      };
+    } else {
+      return {
+        statusCode: 405, // Method Not Allowed
+        body: JSON.stringify({ success: false, error: 'Método não permitido' }),
       };
     }
-    await db.collection('texts').add({ text });
-    return {
-      statusCode: 200,
-      body: JSON.stringify({ message: 'Texto adicionado com sucesso!' }),
-    };
   } catch (error) {
-    console.error('Erro ao adicionar texto:', error);
+    console.error('Erro ao processar a requisição:', error);
     return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Erro ao adicionar texto', details: error.message }),
+      statusCode: 500, // Internal Server Error
+      body: JSON.stringify({ success: false, error: 'Erro interno do servidor' }),
     };
   }
-};
-
-// Função para coletar dados do Firestore
-const readData = async () => {
-  try {
-    const snapshot = await db.collection('texts').get();
-    const texts = snapshot.docs.map(doc => doc.data().text);
-    return {
-      statusCode: 200,
-      body: JSON.stringify(texts),
-    };
-  } catch (error) {
-    console.error('Erro ao coletar textos:', error);
-    return {
-      statusCode: 500,
-      body: JSON.stringify({ error: 'Erro ao coletar textos', details: error.message }),
-    };
-  }
-};
-
-// Manipulador para lidar com requisições HTTP
-exports.handler = async (event) => {
-  if (event.httpMethod === 'POST') {
-    return addData(event.body);
-  } else if (event.httpMethod === 'GET') {
-    return readData();
-  }
-
-  return {
-    statusCode: 405,
-    body: JSON.stringify({ error: 'Método não permitido' }),
-  };
 };

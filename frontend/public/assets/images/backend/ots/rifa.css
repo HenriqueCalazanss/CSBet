@@ -3,12 +3,12 @@ body {
     background-color: #1b1b1b;
     color: #fff;
     margin: 0;
-    padding: 0; /* Removendo o padding do body */
+    padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    overflow: hidden; /* Evita scroll na tela */
+    overflow: hidden;
 }
 
 .admin-panel {
@@ -18,7 +18,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
     width: 100%;
     max-width: 400px;
-    box-sizing: border-box; /* Inclui padding e border no cálculo da largura */
+    box-sizing: border-box;
 }
 
 h1 {
@@ -30,7 +30,6 @@ h1 {
 
 .form-group {
     margin-bottom: 10px;
-    width: 100%;
 }
 
 label {
@@ -41,7 +40,6 @@ label {
 }
 
 input[type="text"],
-input[type="number"],
 textarea,
 select {
     width: 100%;
@@ -58,9 +56,16 @@ textarea {
     resize: none;
 }
 
+#imagePreview {
+    display: none;
+    width: 35px;
+    margin-right: 10px;
+}
+
 .image-group {
     display: flex;
     align-items: center;
+    height: 85px;
 }
 
 .image-group input[type="text"] {
@@ -74,12 +79,13 @@ input[type="file"] {
 
 .btn-upload {
     padding: 8px;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 5px;
     background-color: #52299e;
     color: #fff;
-    border-radius: 5px;
     cursor: pointer;
-    font-size: 0.9rem;
-    margin: 0;
+    transition: background-color 0.3s ease;
 }
 
 .btn-create {
@@ -104,7 +110,6 @@ input[type="file"] {
     background-color: #333;
     border-radius: 5px;
     border: 1px solid #444;
-    width: 100%;
 }
 
 .prefix {
@@ -137,4 +142,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 input[type="number"] {
     -moz-appearance: textfield;
+    -webkit-appearance: none;
+    appearance: none;
 }

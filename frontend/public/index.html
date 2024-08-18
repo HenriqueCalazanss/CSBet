@@ -21,7 +21,7 @@
             <li><a href="#" onclick="openPopup('comoParticipar')">Como Participar</a></li>
             <li><a href="#" onclick="openPopup('contato')">Suporte</a></li>
             
-                              <button><a href="/backend/index.html"></a></button>
+                              <button><a href="assets/images/backend/index.html"></a></button>
         </ul>
     </nav>
 
@@ -44,39 +44,11 @@
     
     <main id="rafflesContainer" class="raffles-container">
         <h2>Escolha Sua Rifa!</h2>
+            <div id="carregando">
+            <h1>Carregando...</h1>
+            <div class="spinner"></div>
+            </div>
         <ul class="raffles-list">
-            <li class="raffle-item" onclick="openPopup('popUpRifas')">
-                <img src="assets/images/LOGOCSBET.png" alt="Rifa 1">
-                <div class="raffle-details">
-                    <h3>Rifa 1</h3>
-                    <p>Descrição da Rifa 1.</p>
-                </div>
-                <span class="raffle-price">R$ 10,00</span>
-            </li>
-            <li class="raffle-item" onclick="openPopup('popUpRifas')">
-                <img src="assets/images/LOGOCSBET.png" alt="Rifa 2">
-                <div class="raffle-details">
-                    <h3>Rifa 2</h3>
-                    <p>Descrição da Rifa 2.</p>
-                </div>
-                <span class="raffle-price">R$ 20,00</span>
-            </li>
-            <li class="raffle-item" onclick="openPopup('popUpRifas')">
-                <img src="assets/images/LOGOCSBET.png" alt="Rifa 3">
-                <div class="raffle-details">
-                    <h3>Rifa 3</h3>
-                    <p>Descrição da Rifa 3.</p>
-                </div>
-                <span class="raffle-price">R$ 25,00</span>
-            </li>
-            <li class="raffle-item" onclick="openPopup('popUpRifas')">
-                <img src="assets/images/LOGOCSBET.png" alt="Rifa 4">
-                <div class="raffle-details">
-                    <h3>Rifa 4</h3>
-                    <p>Descrição da Rifa 4.</p>
-                </div>
-                <span class="raffle-price">R$ 30,00</span>
-            </li>
         </ul>
     </main>
 
@@ -95,7 +67,7 @@
                         </div>
                         <div>
                             <h5>SORTEIO AO-VIVO</h3>
-                            <P>🏆 Premio: Nome da Skin</P>
+                            <P>🏆 Premio: <span style="padding: 2px 0 0 3px;">Nome da Skin</span></P>
                         </div>
                     </div>
                     <div id="sessaoNumero">
