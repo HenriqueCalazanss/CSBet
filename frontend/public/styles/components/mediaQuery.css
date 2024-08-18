@@ -1,0 +1,84 @@
+/* Responsividade */
+@media (max-width: 768px) {
+    .raffles-list {
+        grid-template-columns: 1fr;
+    }
+
+    .raffle-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .raffle-item img {
+        margin-bottom: 15px;
+        margin-right: 0;
+    }
+
+    .raffle-price {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 900px) {
+    #popUpRifas {
+        align-items: unset;
+    }
+
+    #imgRifa {
+        max-width: unset;
+    }
+
+    #boxRifa {
+        flex-direction: column;
+        width: 100vw;
+    }
+
+    #boxRifaRight {
+        margin-top: 10px;
+        height: 40dvh;
+    }
+
+    #boxRifa h3 {
+        font-size: 35px;
+    }
+
+    #info {
+        flex-direction: column;
+    }
+    
+    #info div {
+        width: 100%;
+    }
+
+    #info h4 {
+        height: 80px;
+        font-size: 35px;
+    }
+
+    #info p {
+        font-size: 22px;
+        margin: 20px 0;
+    }
+
+    #info h5 {
+        font-size: 35px;
+    }
+
+    #sessaoNumero {
+        height: 80%;
+    }
+
+    #sessaoNumero p {
+        font-size: 25px;
+    }
+
+    #boxNumerosUp ul {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    #btnEscolher {
+        height: 50px;
+        font-size: 20px;
+        margin: 15px 0 25px 0;
+    }
+}
