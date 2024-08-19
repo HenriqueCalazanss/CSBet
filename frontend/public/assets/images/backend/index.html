@@ -10,11 +10,123 @@
     <main>
         <h1>Painel CSBet:</h1>
         <div id="container">
-            <a href="ots/rifa.html"><button class="btn">Criar Nova Rifa</button></a>
-            <a href="ots/RifaON.html"><button class="btn">Rifas Disponíveis</button></a>
+            <button id="btn1" class="btn">Criar Nova Rifa</button>
+            <button id="btn2" class="btn">Rifas Disponíveis</button>
         </div>
     </main>
 
-    <script src="index.js"></script>
+    <section id="tela1" style="display: none;">
+        <div class="admin-panel">
+            <button class="close" onclick="closePopup('tela1')">&times;</button>
+            <h1>Painel ADM - Nova Rifa</h1>
+            <div id="messageBox" style="display: none;"></div>
+            
+            <form id="newRaffleForm">
+                <div class="form-group">
+                    <input placeholder="Nome da Rifa:" type="text" id="raffleName" name="raffleName" required>
+                </div>
+    
+                <div class="form-group image-group">
+                    <div id="imgVizu" class="form-group" style="display: flex;align-items: center; margin-bottom: 0;"><label for="raffleImage">Pré-<br>visu:</label>
+                        <img id="raffleImage" src="" alt="Pré-visualização da imagem" style="display: none; width: 100%; height: 50px; margin: 0 10px;">
+                    </div>
+                    <input type="text" id="raffleImageText" placeholder="Insira o link da imagem">
+                    <button type="button" class="btn-upload"><img src="ots/refresh.png" alt="" style="height: 16px;"></button>
+                </div>
+                
+    
+                <div class="form-group">
+                    <textarea placeholder="Descrição:"  id="raffleDescription" name="raffleDescription" rows="4" required></textarea>
+                </div>
+    
+                <div class="form-group">
+                    <select id="raffleNumbers" name="raffleNumbers" required>
+                        <option value="" disabled selected>Quantidade de Números:</option>
+                        <option value="0">0</option>
+                        <option value="20">20</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                        <option value="200">200</option>
+                        <option value="400">400</option>
+                        <option value="600">600</option>
+                        <option value="1000">1000</option>
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <select id="raffleNubrPerson"  name="raffleNubrPerson" required>
+                        <option value="" disabled selected>N° por pessoa:</option>
+                        <option value="1">1</option>
+                        <option value="5">5</option>
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="0">0</option>
+                    </select>
+                </div>
+    
+                <div class="form-group">
+                    <div class="input-with-prefix">
+                        <span class="prefix">R$</span>
+                        <input placeholder="Valor:"  type="text" id="raffleValue" name="raffleValue" required>
+                    </div>
+                </div>
+    
+                <div class="form-group">
+                    <input placeholder="Prêmio:"  type="text" id="rafflePrize" name="rafflePrize" required>
+                </div>
+    
+                <div class="form-group">
+                    <select id="drawType" name="drawType" required>
+                        <option value="" disabled selected>Tipo de Sorteio:</option>
+                        <option value="Sorteio ao Vivo (Youtube)">Sorteio ao Vivo (Youtube)</option>
+                        <option value="Sorteio ao Vivo (Instagram)">Sorteio ao Vivo (Instagram)</option>
+                        <option value="Sorteio ao Vivo (Twitch)">Sorteio ao Vivo (Twitch)</option>
+                        <option value="Loteria Federal">Loteria Federal</option>
+                    </select>
+                </div>
+    
+                <button type="submit" id="createRaffleButton" class="btn-create">Criar Rifa</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="tela2" style="display: none;">
+        <div class="admin-panel">
+            <button class="close" onclick="closePopup('tela2')">&times;</button>
+            <h1>Painel ADM - Rifas Online</h1>
+            <div id="carregando">Carregando...</div>
+            <ul id="rafflesList" class="raffles-list">
+                <!-- Rifas serão inseridas aqui via JavaScript -->
+            </ul>
+        </div>
+    
+        <!-- Popup para detalhes da rifa -->
+        <div id="raffleDetailsPopup" class="popup">
+            <div class="popup-content">
+                <span class="close" onclick="closePopup()">&times;</span>
+                <h2 id="raffleName"></h2>
+                <div class="popup-info">
+                    <div class="info-item">
+                        <p><strong>Números Vendidos:</strong></p>
+                        <p id="numbersSold"></p>
+                    </div>
+                    <div class="info-item">
+                        <p><strong>Números Disponíveis:</strong></p>
+                        <p id="numbersAvailable"></p>
+                    </div>
+                    <div class="info-item">
+                        <p><strong>% Vendida:</strong></p>
+                        <p id="percentageSold"></p>
+                    </div>
+                    <div class="info-item">
+                        <p><strong>Top Comprador:</strong></p>
+                        <p id="topBuyer"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script src="ots/rifa.js"></script>
 </body>
 </html>

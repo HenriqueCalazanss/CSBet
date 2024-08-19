@@ -30,7 +30,7 @@ exports.handler = async function (event, context) {
       const requiredFields = [
         'raffleName', 'raffleImage', 'raffleDescription', 
         'raffleNumbers', 'raffleValue', 'rafflePrize', 
-        'drawType'
+        'drawType', 'raffleNubrPerson'
       ];
 
       for (const field of requiredFields) {
@@ -51,6 +51,15 @@ exports.handler = async function (event, context) {
         return numbersArray;
       }
 
+      // Criar o objeto nperson
+      const nperson = {};
+      const selectedNumber = parseInt(data.raffleNubrPerson, 10);
+      if (!isNaN(selectedNumber) && selectedNumber > 0) {
+        nperson[selectedNumber] = true;
+      } else {
+        console.warn('Número selecionado inválido ou não foi selecionado.');
+      }
+
       // Obter o próximo ID sequencial
       const sequenceRef = db.collection('sequences').doc('raffle_sequence');
       const sequenceDoc = await sequenceRef.get();
@@ -68,10 +77,11 @@ exports.handler = async function (event, context) {
         name: data.raffleName,
         image: data.raffleImage,
         description: data.raffleDescription,
-        numbers: generateNumbersArray(data.raffleNumbers),
+        numbers: generateNumbersArray(parseInt(data.raffleNumbers, 10)), // Garantir que a quantidade seja um número
         value: data.raffleValue,
         prize: data.rafflePrize,
         typeofdraw: data.drawType,
+        nperson: nperson, // Novo campo adicionado
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
       });
 
@@ -81,10 +91,8 @@ exports.handler = async function (event, context) {
         body: JSON.stringify({ success: true }),
       };
     } else if (event.httpMethod === 'GET') {
-
       const snapshot = await db.collection('rifas').orderBy('timestamp', 'asc').get();
 
-      
       if (snapshot.empty) {
         return {
           statusCode: 200,
