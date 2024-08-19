@@ -64,8 +64,8 @@
         font-size: 35px;
     }
 
-    #sessaoNumero {
-        height: 80%;
+    #boxNumerosUp {
+        max-height: 300px;
     }
 
     #sessaoNumero p {
