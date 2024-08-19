@@ -34,7 +34,6 @@
 }
 
 /* Menu */
-
 #carregando {
     display: flex;
     flex-direction: column;
@@ -49,7 +48,7 @@
     border-radius: 50%;
     background: radial-gradient(farthest-side,#52299e 94%,#0000) top/9px 9px no-repeat, conic-gradient(#0000 30%,#52299e);
     -webkit-mask: radial-gradient(farthest-side,#0000 calc(100% - 3.8px),#000 0);
-    mask: radial-gradient(farthest-side,#0000 calc(100% - 10px),#000 0); /* Adicione esta linha */
+    mask: radial-gradient(farthest-side,#0000 calc(100% - 10px),#000 0);
     animation: spinner-c7wet2 1.2s infinite linear;
 }
  
@@ -182,6 +181,13 @@ h2 {
 
 .raffle-details {
     flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.raffle-details h3 {
+    margin-bottom: 15px;
 }
 
 .raffle-details h2 {
@@ -193,6 +199,7 @@ h2 {
 .raffle-details p {
     font-size: 1rem;
     color: #949494;
+    width: 70%;
 }
 
 .raffle-price {
@@ -233,6 +240,7 @@ h2 {
     flex-direction: column;
     width: 100%;
     padding: 20px;
+    justify-content: space-between;
 }
 
 #info {
@@ -271,33 +279,39 @@ h2 {
 #sessaoNumero {
     display: flex;
     flex-direction: column;
-    height: 57%;
 }
 
 #sessaoNumero p {
     font-size: 25px;
+    margin-bottom: 10px;
 }
 
 #boxNumerosUp {
+    max-height: 160px;
     overflow-y: auto;
-    margin-top: 10px;
+}
+
+#boxNumerosUp::-webkit-scrollbar-thumb {
+    background: #52299e;
+    border-radius: 5px;
 }
 
 #boxNumerosUp::-webkit-scrollbar {
-    width: 0px;
+    width: 2px;
     background: transparent;
 }
 
 #boxNumerosUp ul {
     list-style-type: none;
-    padding: 0px;
+    padding: 0;
+    margin: 0;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
     gap: 5px;
 }
 
 #boxNumerosUp li {
-    border: 1px solid rgb(179 0 167);
+    border: 1px solid rgb(179, 0, 167);
     border-radius: 5px;
     display: flex;
     align-items: center;
@@ -307,6 +321,7 @@ h2 {
     cursor: pointer;
     text-align: center;
     box-sizing: border-box;
+    height: 40px;
 }
 
 #boxNumerosUp li.selected {

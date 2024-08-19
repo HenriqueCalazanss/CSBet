@@ -1,7 +1,6 @@
 @import url("components/telaRifa.css");
 @import url("components/mediaQuery.css");
 
-
 /* Reset de margens e preenchimentos */
 * {
     margin: 0;
@@ -40,6 +39,17 @@ body::-webkit-scrollbar-thumb {
     body {
         scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
     }
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: #fff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    background: none;
+    border: none;
 }
 
 /* Estilos do header e banner */

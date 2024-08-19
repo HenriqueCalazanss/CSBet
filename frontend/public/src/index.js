@@ -1,54 +1,51 @@
-// URL base da função do Netlify
 const FUNCTION_URL = '/.netlify/functions/functions';
 
-// Função para desativar o scroll
 function disableScroll() {
   document.body.style.overflow = 'hidden';
 }
 
-// Função para ativar o scroll
 function enableScroll() {
   document.body.style.overflow = '';
 }
 
-// Função para abrir o popup
 function openPopup(popupId) {
   document.getElementById(popupId).style.display = 'flex';
   disableScroll(); // Desativa o scroll quando o popup é aberto
 }
 
-// Função para fechar o popup
 function closePopup(popupId) {
   document.getElementById(popupId).style.display = 'none';
   enableScroll(); // Reativa o scroll quando o popup é fechado
+  
+  // Limpar o cálculo do total
+  updateTotal('0.00'); // Define o total como zero
 }
 
-// Fechar o popup ao clicar fora do conteúdo
 window.addEventListener('click', function(event) {
   const popupElements = document.querySelectorAll('.popup');
   popupElements.forEach(popup => {
     if (event.target === popup) {
       popup.style.display = 'none';
-      enableScroll(); // Reativa o scroll ao fechar o popup
+      enableScroll();
+      
+      updateTotal('0.00');
     }
   });
 });
 
-// Função para buscar rifas do backend e exibir na página
 document.addEventListener('DOMContentLoaded', () => {
   fetchRaffles();
 });
 
 async function fetchRaffles() {
   try {
-    const response = await fetch(FUNCTION_URL); // Requisitar rifas do backend
+    const response = await fetch(FUNCTION_URL);
     if (!response.ok) {
       throw new Error('Erro ao carregar as rifas');
     }
     const raffles = await response.json();
     displayRaffles(raffles);
 
-    // Ocultar o elemento de carregamento e mostrar a lista de rifas
     document.getElementById('carregando').style.display = 'none';
     document.querySelector('.raffles-list').style.display = 'grid';
   } catch (error) {
@@ -58,14 +55,12 @@ async function fetchRaffles() {
 
 function displayRaffles(raffles) {
   const rafflesList = document.querySelector('.raffles-list');
-  rafflesList.innerHTML = ''; // Limpar lista existente
-
+  rafflesList.innerHTML = '';
   raffles.forEach(raffle => {
     const raffleItem = document.createElement('li');
     raffleItem.classList.add('raffle-item');
     raffleItem.addEventListener('click', () => {
       openPopup('popUpRifas');
-      // Atualizar detalhes do popup com as informações da rifa clicada
       updateRafflePopup(raffle);
     });
 
@@ -82,6 +77,8 @@ function displayRaffles(raffles) {
   });
 }
 
+let maxSelectable = Infinity;
+
 function updateRafflePopup(raffle) {
   document.getElementById('imgRifa').src = raffle.image;
   document.querySelector('#boxRifa h3').textContent = raffle.name;
@@ -90,48 +87,53 @@ function updateRafflePopup(raffle) {
   document.querySelector('#info div:nth-of-type(2) h5').textContent = raffle.typeofdraw;
   document.querySelector('#info div:nth-of-type(2) span').textContent = raffle.prize;
 
-  // Atualiza a lista de números
   const boxNumerosUp = document.getElementById('boxNumerosUp');
-  boxNumerosUp.innerHTML = ''; // Limpar conteúdo existente
-
-  // Criar a lista ul
+  boxNumerosUp.innerHTML = '';
   const ul = document.createElement('ul');
+  const npersonKeys = Object.keys(raffle.nperson);
+  const trueValues = npersonKeys.filter(key => raffle.nperson[key] === true);
 
-  // Adicionar números que estão como true
+  if (trueValues.length > 0) {
+    maxSelectable = parseInt(trueValues[0], 10);
+  } else {
+    maxSelectable = Infinity;
+  }
+
   for (const [number, isTrue] of Object.entries(raffle.numbers)) {
     if (isTrue) {
       const li = document.createElement('li');
       li.textContent = number;
       li.addEventListener('click', () => {
-        li.classList.toggle('selected'); // Alternar a classe de seleção
-        // Atualizar o estilo baseado na seleção
+        const selectedItems = document.querySelectorAll('#boxNumerosUp ul li.selected').length;
+
         if (li.classList.contains('selected')) {
-          li.style.fontWeight = '700'; // Font-weight para item selecionado
+          li.classList.remove('selected');
+          li.style.fontWeight = 'normal';
         } else {
-          li.style.fontWeight = 'normal'; // Font-weight padrão para item não selecionado
+          if (maxSelectable === Infinity || selectedItems < maxSelectable) {
+            li.classList.add('selected');
+            li.style.fontWeight = '700';
+          } else {
+            alert(`Você pode selecionar no máximo ${maxSelectable} números.`);
+          }
         }
-        // Atualizar o valor total ao selecionar ou desmarcar
+        
         updateTotal(raffle.value);
       });
       ul.appendChild(li);
     }
   }
 
-  // Adicionar a ul ao boxNumerosUp
   boxNumerosUp.appendChild(ul);
+
+  updateTotal(raffle.value);
 }
 
 function updateTotal(raffleValue) {
-  // Obter a quantidade de itens selecionados
   const selectedItems = document.querySelectorAll('#boxNumerosUp ul li.selected').length;
-
-  // Calcular o total
-  const total = (selectedItems * parseFloat(raffleValue)).toFixed(2);
-
-  // Formatar o total com vírgula como separador decimal
+  const raffleValueNumber = parseFloat(raffleValue.replace(',', '.'));
+  const total = (selectedItems * raffleValueNumber).toFixed(2);
   const totalFormatted = total.replace('.', ',');
-
-  // Atualizar o valor na span do botão
   const btnEscolherSpan = document.querySelector('#btnEscolher span');
-  btnEscolherSpan.textContent = `R$ ${totalFormatted}`;
+  btnEscolherSpan.textContent = `${totalFormatted}`;
 }
