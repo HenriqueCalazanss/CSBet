@@ -30,7 +30,7 @@ exports.handler = async function (event, context) {
       const requiredFields = [
         'raffleName', 'raffleImage', 'raffleDescription', 
         'raffleNumbers', 'raffleValue', 'rafflePrize', 
-        'drawType', 'raffleNubrPerson'
+        'drawType', 'raffleNubrPerson', 'rafflePAYMENT'
       ];
 
       for (const field of requiredFields) {
@@ -77,11 +77,12 @@ exports.handler = async function (event, context) {
         name: data.raffleName,
         image: data.raffleImage,
         description: data.raffleDescription,
-        numbers: generateNumbersArray(parseInt(data.raffleNumbers, 10)), // Garantir que a quantidade seja um número
+        numbers: generateNumbersArray(parseInt(data.raffleNumbers, 10)),
         value: data.raffleValue,
         prize: data.rafflePrize,
         typeofdraw: data.drawType,
-        nperson: nperson, // Novo campo adicionado
+        nperson: nperson,
+        paymentMethod: data.rafflePAYMENT, // Salvar o método de pagamento
         timestamp: admin.firestore.FieldValue.serverTimestamp(),
       });
 

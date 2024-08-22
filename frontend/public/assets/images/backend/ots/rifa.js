@@ -1,4 +1,3 @@
-// URL da função do Netlify
 const FUNCTION_URL = '/.netlify/functions/functions';
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -59,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
     function getSelectedText(selectElement) {
         return selectElement.options[selectElement.selectedIndex].text;
     }
-
+    
     // Validação e criação da rifa
     document.getElementById('createRaffleButton').addEventListener('click', async function (e) {
         e.preventDefault();
@@ -74,24 +73,26 @@ document.addEventListener('DOMContentLoaded', function () {
         const drawTypeSelect = document.getElementById('drawType');
         const drawType = getSelectedText(drawTypeSelect); // Obter o texto da opção selecionada
         const raffleNubrPerson = document.getElementById('raffleNubrPerson').value; // Coleta o número de pessoas
+        const rafflePAYMENT = document.getElementById('rafflepPAYMENT').value; // Coleta o método de pagamento
 
         // Log para depuração
-        console.log('Dados do formulário:', {
-            raffleName,
-            raffleImage,
-            raffleDescription,
-            raffleNumbers,
-            raffleValue,
-            rafflePrize,
-            drawType,
-            raffleNubrPerson, // Adiciona o número de pessoas ao log
-        });
-
-        // Validação extra
-        if (raffleName === '' || raffleDescription === '' || rafflePrize === '' || raffleImage === '') {
-            alert('Por favor, preencha todos os campos obrigatórios.');
-            return;
-        }
+         console.log('Dados do formulário:', {
+             raffleName,
+             raffleImage,
+             raffleDescription,
+             raffleNumbers,
+             raffleValue,
+             rafflePrize,
+             drawType,
+             raffleNubrPerson, // Adiciona o número de pessoas ao log
+             rafflePAYMENT, // Adiciona o método de pagamento ao log
+         });
+     
+         // Validação extra
+         if (raffleName === '' || raffleDescription === '' || rafflePrize === '' || raffleImage === '') {
+             alert('Por favor, preencha todos os campos obrigatórios.');
+             return;
+         }
 
         if (!/^\d+,\d{2}$/.test(raffleValue)) {
             alert('Insira um valor válido. Ex: 10,00');
@@ -99,46 +100,47 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         // Enviar os dados para o backend
-        try {
-            const response = await fetch(FUNCTION_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    raffleName,
-                    raffleImage, // Link da imagem
-                    raffleDescription,
-                    raffleNumbers,
-                    raffleValue,
-                    rafflePrize,
-                    drawType, // Salvar o nome selecionado
-                    raffleNubrPerson, // Adiciona o número de pessoas ao corpo da requisição
-                }),
-            });
+         try {
+             const response = await fetch(FUNCTION_URL, {
+                 method: 'POST',
+                 headers: {
+                     'Content-Type': 'application/json',
+                 },
+                 body: JSON.stringify({
+                     raffleName,
+                     raffleImage, // Link da imagem
+                     raffleDescription,
+                     raffleNumbers,
+                     raffleValue,
+                     rafflePrize,
+                     drawType, // Salvar o nome selecionado
+                     raffleNubrPerson, // Adiciona o número de pessoas ao corpo da requisição
+                     rafflePAYMENT, // Adiciona o método de pagamento ao corpo da requisição
+                 }),
+             });
 
-            const result = await response.json();
-            console.log('Resposta do backend:', result); // Log para depuração
-
-            if (result.success) {
-                alert('Rifa criada com sucesso!');
-                // Limpar o formulário ou redirecionar o usuário
-                const raffleForm = document.getElementById('newRaffleForm');
-                if (raffleForm) {
-                    raffleForm.reset(); // Limpar o formulário somente se ele existir
-                    // Garantir que a pré-visualização da imagem também seja oculta
-                    document.getElementById('raffleImage').style.display = 'none';
-                } else {
-                    console.error('Formulário não encontrado.');
-                }
-            } else {
-                alert('Erro ao criar a rifa: ' + (result.error || 'Erro desconhecido.'));
+             const result = await response.json();
+             console.log('Resposta do backend:', result); // Log para depuração
+     
+             if (result.success) {
+                 alert('Rifa criada com sucesso!');
+                 // Limpar o formulário ou redirecionar o usuário
+                 const raffleForm = document.getElementById('newRaffleForm');
+                 if (raffleForm) {
+                     raffleForm.reset(); // Limpar o formulário somente se ele existir
+                     // Garantir que a pré-visualização da imagem também seja oculta
+                     document.getElementById('raffleImage').style.display = 'none';
+                 } else {
+                     console.error('Formulário não encontrado.');
+                 }
+             } else {
+                 alert('Erro ao criar a rifa: ' + (result.error || 'Erro desconhecido.'));
+             }
+            } catch (error) {
+                console.error('Erro ao criar a rifa:', error);
+                alert('Erro ao criar a rifa. Tente novamente.');
             }
-        } catch (error) {
-            console.error('Erro ao criar a rifa:', error);
-            alert('Erro ao criar a rifa. Tente novamente.');
-        }
-    });
+        });
 });
 
 // Função para buscar rifas do backend

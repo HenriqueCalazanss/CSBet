@@ -18,6 +18,7 @@
 
     <nav class="menu">
         <ul>
+            <li><a href="#" onclick="openPopup('minhasRifas')">Minhas Rifas</a></li>
             <li><a href="#" onclick="openPopup('comoParticipar')">Como Participar</a></li>
             <li><a href="#" onclick="openPopup('contato')">Suporte</a></li>
             
@@ -26,6 +27,14 @@
     </nav>
 
     <!-- Pop-ups Menu -->
+    <section id="minhasRifas" class="popup">
+        <div class="popup-content">
+            <button class="close" onclick="closePopup('minhasRifas')">&times;</button>
+            <h2>Minhas Rifas</h2>
+            <p>Aqui aparecerão as rifas do Cliente.</p>
+        </div>
+    </section>
+
     <section id="comoParticipar" class="popup">
         <div class="popup-content">
             <button class="close" onclick="closePopup('comoParticipar')">&times;</button>
