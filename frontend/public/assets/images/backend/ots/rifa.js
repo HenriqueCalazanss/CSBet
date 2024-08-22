@@ -272,3 +272,4 @@ function hidePopupOnClick(event) {
 
 // Adiciona o evento de clique ao documento para capturar cliques fora do popup-content
 document.addEventListener('click', hidePopupOnClick);
+

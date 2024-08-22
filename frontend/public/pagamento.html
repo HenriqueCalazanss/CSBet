@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamento</title>
+    <link rel="stylesheet" href="styles/components/pagamento.css">
+</head>
+<body>
+    <div class="payment-container">
+        <h1>Pagamento</h1>
+        <p>Por favor, revise as informações antes de prosseguir.</p>
+
+        <div class="payment-info">
+            <p><strong>Nome:</strong> <span id="nomeCliente"></span></p>
+            <p><strong>WhatsApp:</strong> <span id="whatsappCliente"></span></p>
+            <p><strong>Valor:</strong> R$ <span id="valorRifa">00,00</span></p>
+        </div>
+
+        <div class="qr-code">
+            <p>Aqui o QR Code será exibido após a geração:</p>
+            <div class="qr-placeholder">QR Code</div>
+        </div>
+
+        <button id="btnFinalizar">Finalizar Compra</button>
+    </div>
+
+    <script src="src/pagamento.js"></script>
+</body>
+</html>
